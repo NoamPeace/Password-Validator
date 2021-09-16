@@ -6,8 +6,33 @@
 #
 # The script was written performance wise to use minimum variables as possible
 
+# Checks whether a "-f" flag is passed to the script with a filename argument
+#   and sets the $1 variable to the first line in the file
+#   if file doesn't exist -> print an error message to stdout
+#   in case the wrong flag is passed -> print an error message to stdout
+#   in case there is no filename argument after the -f flag -> print an error message to stdout
+
+while getopts "f:" flag; do
+  case ${flag} in
+	f )
+	    if ! [[ -f "$OPTARG" ]]; then echo "$OPTARG file not exists." 1>&2 && exit 2 ;fi
+	    read -r Password_From_File < $OPTARG
+	    set -- $Password_From_File
+	    ;;
+	\? )
+	    echo "Invalid option: $OPTARG" 1>&2
+	    exit 2
+	    ;;
+	: )
+	    echo "Invalid option: $OPTARG requires an argument" 1>&2
+	    exit 2
+	    ;;
+  esac
+done
+
 # Validates number of characters in the passed parameter ${#1}
 #   and outputs a message whether they are not ! equal or greater then 10 (in red color)
+
 
 if ! [[ ${#1} -ge 10 ]]; then
 	echo "$(tput setaf 1)password is lower than 10 characters"
