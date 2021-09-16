@@ -1,4 +1,4 @@
-
+#!/bin/bash
 # Password Validator script
 # Author: Noam Ben-Ari, noam.benari@gmail.com
 # This script performs password strenth validation automatically with the given password as a parameter
