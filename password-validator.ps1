@@ -4,7 +4,21 @@
 # Usage Parameters: ./password-validator.sh {PASSWORD}
 #
 # The script was written performance wise to use minimum variables as possible
-
+#$password = $args[0]
+#Write-Host "testing password variable " + $password
+#Write-Host "testing args0 variable " + $args[0]
+#if ( $args[0] -eq "-f")
+#{
+param($f)
+    if ( Test-Path -Path $f -PathType Leaf )
+    {
+        Write-Host "file exists"
+        $password_from_file = Get-Content $f -First 1
+        $args = @($password_from_file)
+    }
+#}
+#Write-Host $args[0]
+#Write-Host $password
 # Validates number of characters in the passed parameter ${#1}
 #   and outputs a message whether they are not equal or greater then 10 (in red color)
 
